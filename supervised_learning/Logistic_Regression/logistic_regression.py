@@ -20,9 +20,13 @@ def error(y, y_hat):
 # The second list should contain the gradient (partial derivatives) with respect to w2
 # The third list should contain the gradient (partial derivatives) with respect to b
 def dErrors(X, y, y_hat):
-    DErrorsDx1 = # Fill in
-    DErrorsDx2 = # Fill in
-    DErrorsDb = # Fill in
+    DErrorsDx1 = []
+    DErrorsDx2 = []
+    DErrorsDb = []
+    for i in range(len(y)):
+        DErrorsDx1.append(X[i][0]*(y[i]-y_hat[i]))
+        DErrorsDx2.append(X[i][1]*(y[i]-y_hat[i]))
+        DErrorsDb.append(y[i]-y_hat[i])
     return DErrorsDx1, DErrorsDx2, DErrorsDb
 
 # TODO: Fill in the code below to implement the gradient descent step.
@@ -32,9 +36,19 @@ def dErrors(X, y, y_hat):
 # update the weights and bias W, b. Then return W and b.
 # The error e will be calculated and returned for you, for plotting purposes.
 def gradientDescentStep(X, y, W, b, learn_rate = 0.01):
-    # TODO: Calculate the prediction
-    # TODO: Calculate the gradient
-    # TODO: Update the weights
+    
+    # Calculates the prediction
+    y_hat = prediction(X, W, b)
+    
+    # Calculates the gradient
+    derivErrors = dErrors(X, y, y_hat)
+    
+    #Update the weights
+    W[0] += sum(derivErrors[0])*learn_rate
+    W[1] += sum(derivErrors[1])*learn_rate
+    b += sum(derivErrors[2])*learn_rate
+    
+    
     # This calculates the error
     e = error(y, y_hat)
     return W, b, e
