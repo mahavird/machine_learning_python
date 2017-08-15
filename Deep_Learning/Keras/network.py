@@ -20,15 +20,27 @@ xor = Sequential()
 # Add required layers
 # xor.add()
 
+xor.add(Dense(6, input_dim=X.shape[1]))
+
+# Add a tanh activation layer
+xor.add(Activation('tanh'))
+
+# Output Layer - Add a fully connected output layer
+xor.add(Dense(1))
+
+# activation function of o/p layer, a sigmoid activation layer
+xor.add(Activation('sigmoid'))
+
+
 # Specify loss as "binary_crossentropy", optimizer as "adam",
 # and add the accuracy metric
-# xor.compile()
+xor.compile(loss="binary_crossentropy", optimizer="adam", metrics = ["accuracy"])
 
 # Uncomment this line to print the model architecture
-# xor.summary()
+xor.summary()
 
 # Fitting the model
-history = xor.fit(X, y, nb_epoch=50, verbose=0)
+history = xor.fit(X, y, nb_epoch=100, verbose=0)
 
 # Scoring the model
 score = xor.evaluate(X, y)
