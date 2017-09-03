@@ -12211,7 +12211,11 @@ Yes,we will consider this model to have successfully captured the variation of t
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
-<p>Data is split in test and train subsets, because once we have trained our model on the train data set, the test dataset will predict the behavior of our model in real environment. It would be better to break dataset into train, validation and test.</p>
+<p>Data is split in test and train subsets, because once we have trained our model on the train data set, the test dataset will predict the behavior of our model in real environment. 
+The biggest benefit to splitting your dataset into training and testing is validation, i.e being able to validate/measure the accuracy of your training.
+Splitting the dataset into a suitable ratio of training and testing optimizes the scenario of using just enough data to train the algorithm for a good fit, leaving unseen data (by the model), for you validate/measure the accuracy of the model and avoid errors due to high bias or high variance.
+It would be better to break dataset into train, validation and test.</p>
+<p>To avoid any bias in our training or test set, we partition the data points randomly.</p>
 
 </div>
 </div>
@@ -13331,8 +13335,8 @@ Think about the pros and cons of adding more training points based on if the tra
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong>
-The graph on the top right with max depth of 3 looks suitable.
-Both the train and test score come close to each other more training points are added.We can add more point to training set, till we observe overfitting.</p>
+As more training points are added, its score decreases and seems to level off, while its variance / uncertainty of the curve also decreasing. The testing curve's score also increases as more data points are provided up until approximately 300, as it then tends to level off and run parallel with the training curve.
+Given that both training and validation curves have levelled off, providing more training points would not benefit the model with significant improvements but may only increase time consumption for training and testing.</p>
 
 </div>
 </div>
@@ -13905,7 +13909,9 @@ Grid-search would basically train a SVM for each of these four pair of (gamma, C
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong></p>
+<p><strong>Answer: </strong>
+The k-fold cross-validation training technique is the process of dividing your data points into smaller number of k bins. Testing then occurs on one of the k bins while training occurs with the other k-1 bins. This process, testing and training, occurs k times across all bins for testing and training. The average of the k testing experiments are used as the overall result of the model.
+Although grid search automates the parameter selection and tuning for best performance, not using cross-validation could result in the model being tuned only to a specific subset of data. This is because without using a technique such as cross-validation, for example, only using kfold to create testing and training data, will not shuffle your data points, i.e if your dataset is ordered or in any pattern, grid search would only perform tuning on the same subset of training data. Utilizing cross-validation, eliminates this issue by using the entire dataset allowing grid search to optimize parameter tuning across all data points.</p>
 
 </div>
 </div>
